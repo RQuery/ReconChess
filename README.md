@@ -8,4 +8,10 @@ This is a repository to upload bots for the Reconchess project.
 
 Requirements: Stockfish executable
 
-Performance: Beats TroutBot (Stockfish regular) most of the time, beats random bot every time (at least in the experiments), beats attacker bot as white, loses as black, because attacker bot uses the same strategy as us for the first four moves, and since White starts first, Attacker Bot wins as white.
+Strategy: Goes for the Scholar's Mate in the beginning - https://en.wikipedia.org/wiki/Scholar%27s_mate, once Black is 'checkmated', the king can't move, so we can capture it on the next turn. If Scholar's Mate fails, we use the best move suggested by Stockfish.
+
+Performance: 
+
+Beats TroutBot (Stockfish regular) most of the time - occasional engine crash - Needs fixing
+Beats Random Bot every time (at least in the experiments) 
+Beats Attacker Bot as white, loses as black, because attacker bot uses the same strategy as us for the first four moves, and since White starts first, Attacker Bot wins as white.
