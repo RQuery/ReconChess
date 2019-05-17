@@ -1,5 +1,4 @@
-# CMSC 471
-## Project 5
+# CMSC 471 - Project 5
 ### ReconChess
 
 A repo to upload bots for ReconChess. 
