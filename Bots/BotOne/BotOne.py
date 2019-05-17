@@ -13,15 +13,26 @@ class BotOne(Player):
         self.my_piece_captured_square = None
         self.move_number = 0
 
-        self.white_move = [chess.Move.from_uci("e2e4")]
-        self.white_move.append(chess.Move.from_uci("d1h5"))
-        self.white_move.append(chess.Move.from_uci("f1c4"))
-        self.white_move.append(chess.Move.from_uci("h5f7"))
+        # self.white_move = [chess.Move.from_uci("e2e4")]
+        # self.white_move.append(chess.Move.from_uci("d1h5"))
+        # self.white_move.append(chess.Move.from_uci("f1c4"))
+        # self.white_move.append(chess.Move.from_uci("h5f7"))
         
-        self.black_move = [chess.Move.from_uci("e7e5")]
-        self.black_move.append(chess.Move.from_uci("d8h4"))
-        self.black_move.append(chess.Move.from_uci("f8c5"))
-        self.black_move.append(chess.Move.from_uci("h4f2"))
+        # self.black_move = [chess.Move.from_uci("e7e5")]
+        # self.black_move.append(chess.Move.from_uci("d8h4"))
+        # self.black_move.append(chess.Move.from_uci("f8c5"))
+        # self.black_move.append(chess.Move.from_uci("h4f2"))
+        
+        
+        self.white_move = [chess.Move.from_uci("b1c3")]
+        self.white_move.append(chess.Move.from_uci("c3b5"))
+        self.white_move.append(chess.Move.from_uci("b5d6"))
+        self.white_move.append(chess.Move.from_uci("d6e8"))
+        
+        self.black_move = [chess.Move.from_uci("b8c6")]
+        self.black_move.append(chess.Move.from_uci("c6b4"))
+        self.black_move.append(chess.Move.from_uci("b4d3"))
+        self.black_move.append(chess.Move.from_uci("d3e1"))
         
         # check if stockfish environment variable exists
         if STOCKFISH_ENV_VAR not in os.environ:
@@ -72,7 +83,7 @@ class BotOne(Player):
     def choose_move(self, move_actions: List[chess.Move], seconds_left: float) -> Optional[chess.Move]:
         enemy_king_square = self.board.king(self.opponent_color)
         print("Enemy king square is", enemy_king_square)
-        if enemy_king_square:
+        if enemy_king_square != None:
             # if there are any ally pieces that can take king, execute one of those moves
             enemy_king_attackers = self.board.attackers(self.color, enemy_king_square)
             if enemy_king_attackers:
@@ -88,7 +99,10 @@ class BotOne(Player):
                 self.move_number += 1
                 print(self.white_move[self.move_number - 1])
                 #self.board.push(self.white_move[self.move_number - 1])
-                return self.white_move[self.move_number - 1]
+                if(self.white_move[self.move_number-1] in move_actions):
+                    return self.white_move[self.move_number - 1]
+                else:
+                    self.move_number = 10
                 
             elif self.move_number == 4:
                 print("Move 4")
@@ -99,7 +113,6 @@ class BotOne(Player):
                     return move
 
                 elif(chess.Move(chess.F7, chess.E8) in move_actions):
-                    self.move_number += 1
                     move = chess.Move.from_uci('f7e8')
                     #self.board.push(move)
                     return move
@@ -107,11 +120,14 @@ class BotOne(Player):
                 try:
                     self.board.turn = self.color
                     #self.board.clear_stack()
-                    print(self.board)                    
-                    result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
-                    print(result.move)
-
-                    return result.move
+                    print(self.board) 
+                    if(self.board.is_valid()):
+                        result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
+                        print(result.move)
+                    
+                        return result.move
+                    else:
+                        return random.choice(move_actions + [None])
                 except (chess.engine.EngineError, chess.engine.EngineTerminatedError) as e:
                     print('Engine bad state at "{}"'.format(self.board.fen()))
                 
@@ -126,17 +142,21 @@ class BotOne(Player):
                 self.move_number += 1
                 print(self.black_move[self.move_number - 1])
                 #self.board.push(self.black_move[self.move_number - 1])
-                return self.black_move[self.move_number - 1]
+                if(self.white_move[self.move_number-1] in move_actions):
+                    return self.black_move[self.move_number - 1]
+                else:
+                    self.move_number = 10
+                    
             elif self.move_number == 4:
                 print("Move 4")
                 self.move_number += 1
+                
                 if(chess.Move.from_uci('c5f2') in move_actions):
                     move = chess.Move.from_uci('c5f2')
                     #self.board.push(move)
                     return move
 
                 elif(chess.Move.from_uci('f7e8') in move_actions):
-                    self.move_number += 1
                     move = chess.Move.from_uci('f7e8')
                     #self.board.push(move)
                     return move
@@ -144,8 +164,11 @@ class BotOne(Player):
                 self.move_number += 1
                 self.board.turn = self.color
                 #self.board.clear_stack()
-                result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
-                return result.move
+                if(self.board.is_valid()):
+                    result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
+                    return result.move
+                else:
+                    return random.choice(move_actions + [None])
         return random.choice(move_actions + [None])
 
     def handle_move_result(self, requested_move: Optional[chess.Move], taken_move: Optional[chess.Move],
@@ -154,7 +177,8 @@ class BotOne(Player):
             print("In handle move result")
             self.board.push(taken_move)
         else:
-            self.board.push(requested_move)
+            if(requested_move != None):
+                self.board.push(requested_move)
     def handle_game_end(self, winner_color: Optional[Color], win_reason: Optional[WinReason],
                         game_history: GameHistory):
         self.engine.quit()
