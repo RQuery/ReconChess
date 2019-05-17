@@ -1,7 +1,7 @@
-# CMSC 471 - Project 5
-### ReconChess
+# CMSC 471 - Artificial Intelligence
+# Project 5 - ReconChess
 
-A repo to upload bots for ReconChess. 
+This is a repository to upload bots for the Reconchess project.
 
 ### Bots so far:
 #### BotOne.py:
