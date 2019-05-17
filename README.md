@@ -13,5 +13,7 @@ Strategy: Goes for the Scholar's Mate in the beginning - https://en.wikipedia.or
 Performance: 
 
 Beats TroutBot (Stockfish regular) most of the time - occasional engine crash - Needs fixing
+
 Beats Random Bot every time (at least in the experiments) 
+
 Beats Attacker Bot as white, loses as black, because attacker bot uses the same strategy as us for the first four moves, and since White starts first, Attacker Bot wins as white.
