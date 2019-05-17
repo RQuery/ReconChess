@@ -104,18 +104,18 @@ class BotOne(Player):
                 else:
                     self.move_number = 10
                 
-            elif self.move_number == 4:
-                print("Move 4")
-                self.move_number += 1
-                if(chess.Move.from_uci('c4f7') in move_actions):
-                    move = chess.Move.from_uci('c4f7')
-                    #self.board.push(move)
-                    return move
+            # elif self.move_number == 4:
+                # print("Move 4")
+                # self.move_number += 1
+                # if(chess.Move.from_uci('c4f7') in move_actions):
+                    # move = chess.Move.from_uci('c4f7')
+                    # #self.board.push(move)
+                    # return move
 
-                elif(chess.Move(chess.F7, chess.E8) in move_actions):
-                    move = chess.Move.from_uci('f7e8')
-                    #self.board.push(move)
-                    return move
+                # elif(chess.Move(chess.F7, chess.E8) in move_actions):
+                    # move = chess.Move.from_uci('f7e8')
+                    # #self.board.push(move)
+                    # return move
             else:
                 try:
                     self.board.turn = self.color
@@ -124,60 +124,67 @@ class BotOne(Player):
                     if(self.board.is_valid()):
                         result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
                         print(result.move)
+                        if result.move in move_actions:
+                            return result.move
                     
-                        return result.move
-                    else:
-                        return random.choice(move_actions + [None])
+                    return random.choice(move_actions + [None])
+                        
                 except (chess.engine.EngineError, chess.engine.EngineTerminatedError) as e:
                     print('Engine bad state at "{}"'.format(self.board.fen()))
                 
-                finally:
-                    return random.choice(move_actions + [None])
-                # if everything else failed, pass
-                return None
         else:
             if self.move_number < len(self.black_move):
                 print(self.board)
-                print(self.move_number)
+                #print(self.move_number)
                 self.move_number += 1
                 print(self.black_move[self.move_number - 1])
                 #self.board.push(self.black_move[self.move_number - 1])
-                if(self.white_move[self.move_number-1] in move_actions):
+                if(self.black_move[self.move_number-1] in move_actions):
                     return self.black_move[self.move_number - 1]
                 else:
                     self.move_number = 10
                     
-            elif self.move_number == 4:
-                print("Move 4")
-                self.move_number += 1
+            # elif self.move_number == 4:
+                # print("Move 4")
+                # self.move_number += 1
                 
-                if(chess.Move.from_uci('c5f2') in move_actions):
-                    move = chess.Move.from_uci('c5f2')
-                    #self.board.push(move)
-                    return move
+                # if(chess.Move.from_uci('c5f2') in move_actions):
+                    # move = chess.Move.from_uci('c5f2')
+                    # #self.board.push(move)
+                    # return move
 
-                elif(chess.Move.from_uci('f7e8') in move_actions):
-                    move = chess.Move.from_uci('f7e8')
-                    #self.board.push(move)
-                    return move
+                # elif(chess.Move.from_uci('f7e8') in move_actions):
+                    # move = chess.Move.from_uci('f7e8')
+                    # #self.board.push(move)
+                    # return move
             else:
                 self.move_number += 1
-                self.board.turn = self.color
-                #self.board.clear_stack()
-                if(self.board.is_valid()):
-                    result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
-                    return result.move
-                else:
-                    return random.choice(move_actions + [None])
+                print(self.board)
+                try:
+                    print("Board valid - ", self.board.is_valid())
+                    if(self.board.is_valid()):
+                        result = self.engine.play(self.board, chess.engine.Limit(time=0.5))
+                        print(result)
+                        if result.move in move_actions:
+                            return result.move                        
+                    
+                    move = random.choice(move_actions + [None])
+                    print(move)
+                        
+                    return move
+                except (chess.engine.EngineError, chess.engine.EngineTerminatedError) as e:
+                    print('Engine bad state at "{}"'.format(self.board.fen()))
         return random.choice(move_actions + [None])
 
     def handle_move_result(self, requested_move: Optional[chess.Move], taken_move: Optional[chess.Move],
                            captured_opponent_piece: bool, capture_square: Optional[Square]):
         if taken_move is not None:
             print("In handle move result")
+            self.board.push(chess.Move.null())
             self.board.push(taken_move)
         else:
             if(requested_move != None):
+                self.board.push(chess.Move.null())
                 self.board.push(requested_move)
     def handle_game_end(self, winner_color: Optional[Color], win_reason: Optional[WinReason],
                         game_history: GameHistory):
