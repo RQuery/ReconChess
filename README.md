@@ -6,9 +6,13 @@ This is a repository to upload bots for the Reconchess project.
 ### Bots so far:
 #### BotOne.py:
 
-Requirements: Stockfish executable, which is provided in the folder. You will need to make an environment variable for it.
+Requirements: 
 
-Strategy: Goes for the Scholar's Mate in the beginning - https://en.wikipedia.org/wiki/Scholar%27s_mate, once Black is 'checkmated', the king can't move, so we can capture it on the next turn. If Scholar's Mate fails, we use the best move suggested by Stockfish.
+Stockfish executable, which is provided in the folder. You will need to make an environment variable for it.
+
+Strategy:
+
+Goes for the Scholar's Mate in the beginning - https://en.wikipedia.org/wiki/Scholar%27s_mate, once Black is 'checkmated', the king can't move, so we can capture it on the next turn. If Scholar's Mate fails, we use the best move suggested by Stockfish.
 
 Performance: 
 
