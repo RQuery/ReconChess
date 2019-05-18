@@ -21,3 +21,7 @@ Beats TroutBot (Stockfish regular) most of the time - occasional engine crash - 
 Beats Random Bot every time (at least in the experiments) 
 
 Beats Attacker Bot as white, loses as black, because attacker bot uses the same strategy as us for the first four moves, and since White starts first, Attacker Bot wins as white.
+
+#### BotTwo.py:
+
+Got some interesting results with it, the strategy here is much more promising, and original. Will upload it soon. Tweaking it for best performance at the moment.
