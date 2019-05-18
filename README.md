@@ -24,4 +24,4 @@ Beats Attacker Bot as white, loses as black, because attacker bot uses the same 
 
 #### BotTwo.py:
 
-Got some interesting results with it, the strategy here is much more promising, and original. Will upload it soon. Tweaking it for best performance at the moment.
+Got some interesting results with it, the strategy here is much more promising, and original. Will upload it soon. Tweaking it to try and get better results.
