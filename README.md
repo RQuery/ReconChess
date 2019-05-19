@@ -4,7 +4,7 @@
 This is a repository to upload bots for the Reconchess project.
 
 ### Bots so far:
-#### BotOne.py:
+### BotOne.py:
 
 Requirements: 
 
@@ -22,6 +22,24 @@ Beats Random Bot every time (at least in the experiments)
 
 Beats Attacker Bot as white, loses as black, because attacker bot uses the same strategy as us for the first four moves, and since White starts first, Attacker Bot wins as white.
 
-#### BotTwo.py:
+### BotTwo.py:
 
-Got some interesting results with it, the strategy here is much more promising, and original. Will upload it soon. Tweaking it to try and get better results.
+### Results:
+
+### With White:
+
+20-0 against AttackerBot
+
+20-0 against RandomBot
+
+20-1 against TroutBot (Stockfish)
+
+### With Black:
+
+20-0 against AttackerBot
+
+20-0 against RandomBot
+
+20-7 against TroutBot (Stockfish)
+
+(Black results improved later too...we were 16-1 against Stockfish)
