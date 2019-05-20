@@ -22,7 +22,7 @@ Beats Random Bot every time (at least in the experiments)
 
 Beats Attacker Bot as white, loses as black, because attacker bot uses the same strategy as us for the first four moves, and since White starts first, Attacker Bot wins as white.
 
-### BotTwo.py:
+### BotTwo.py and KingSlayer.py (Same bot):
 
 ### Results:
 
