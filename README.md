@@ -40,6 +40,6 @@ Beats Attacker Bot as white, loses as black, because attacker bot uses the same 
 
 20-0 against RandomBot
 
-20-7 against TroutBot (Stockfish)
+20-3 against TroutBot (Stockfish 9)
 
-(Black results improved later too...we were 16-1 against Stockfish)
+43 - 10 against TroutBot (Stockfish 10)
