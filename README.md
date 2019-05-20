@@ -42,4 +42,4 @@ Beats Attacker Bot as white, loses as black, because attacker bot uses the same 
 
 20-3 against TroutBot (Stockfish 9)
 
-43 - 10 against TroutBot (Stockfish 10)
+43-10 against TroutBot (Stockfish 10)
